@@ -42,15 +42,15 @@ rm -rf %{buildroot}
 %files
 %attr(0755, root, root) /usr/local/next-server
 %attr(0755, root, root) /usr/local/next-server/next-server
-%attr(0644, root, root) /usr/local/next-server/dns.json
-%attr(0644, root, root) /usr/local/next-server/route.json
-%attr(0644, root, root) /usr/local/next-server/custom_outbound.json
-%attr(0644, root, root) /usr/local/next-server/custom_inbound.json
-%attr(0644, root, root) /usr/local/next-server/rulelist
 %attr(0644, root, root) /usr/local/next-server/geoip.dat
 %attr(0644, root, root) /usr/local/next-server/geosite.dat
 %attr(0644, root, root) /usr/local/next-server/README.md
 %attr(0644, root, root) /usr/local/next-server/LICENSE
+%attr(0644, root, root) %{_sysconfdir}/next-server/dns.json
+%attr(0644, root, root) %{_sysconfdir}/next-server/route.json
+%attr(0644, root, root) %{_sysconfdir}/next-server/custom_outbound.json
+%attr(0644, root, root) %{_sysconfdir}/next-server/custom_inbound.json
+%attr(0644, root, root) %{_sysconfdir}/next-server/rulelist
 %attr(0644, root, root) %{_sysconfdir}/next-server
 %attr(0644, root, root) %{_sysconfdir}/next-server/config.yml.example
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/next-server.service
