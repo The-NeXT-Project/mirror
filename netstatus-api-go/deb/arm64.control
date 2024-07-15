@@ -1,0 +1,6 @@
+Package: netstatus-api-go
+Version: 0.0.1
+Architecture: arm64
+Maintainer: The NeXT Project Team <package@sspanel.org>
+Homepage: https://github.com/The-NeXT-Project/NetStatus-API-Go
+Description: NetStatus API (Go Edition)

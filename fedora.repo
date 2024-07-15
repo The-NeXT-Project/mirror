@@ -1,0 +1,5 @@
+[next-panel]
+name=The NeXT Project RPM Repository
+baseurl=https://mirrors.nextpanel.dev/repo/fedora/$releasever/$basearch
+enabled=1
+gpgcheck=0

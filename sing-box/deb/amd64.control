@@ -1,0 +1,6 @@
+Package: sing-box
+Version: 0.0.1
+Architecture: amd64
+Maintainer: The NeXT Project Team <package@sspanel.org>
+Homepage: https://github.com/SagerNet/sing-box
+Description: The universal proxy platform.
