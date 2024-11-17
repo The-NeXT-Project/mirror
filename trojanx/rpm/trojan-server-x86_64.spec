@@ -5,7 +5,7 @@ Summary:        TrojanX Server.
 Group:          Unspecified
 License:        MPL-2.0
 URL:            https://github.com/The-NeXT-Project/TrojanX
-Packager:       The NeXT Project Team <package@sspanel.org>
+Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
 
 %description
@@ -34,11 +34,11 @@ rm -rf %{buildroot}
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/trojan-server.service
 
 %changelog
-* Sun Jul 24 2022 The NeXT Project Team <package@sspanel.org> - 0.0.1-1
+* Sun Jul 24 2022 The NeXT Project Team <package@nextpanel.dev> - 0.0.1-1
  - First release of TrojanX.
 
-* Sun Aug 30 2022 The NeXT Project Team <package@sspanel.org> - 0.0.2-1
+* Sun Aug 30 2022 The NeXT Project Team <package@nextpanel.dev> - 0.0.2-1
  - Bugfixes & Performance improvement.
 
-* Sun Nov 24 2022 The NeXT Project Team <package@sspanel.org> - 0.0.3-1
+* Sun Nov 24 2022 The NeXT Project Team <package@nextpanel.dev> - 0.0.3-1
  - Bugfixes & Performance improvement.

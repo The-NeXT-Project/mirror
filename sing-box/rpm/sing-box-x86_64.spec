@@ -5,7 +5,7 @@ Summary:        The universal proxy platform.
 Group:          Unspecified
 License:        GPL-3.0
 URL:            https://github.com/SagerNet/sing-box
-Packager:       The NeXT Project Team <package@sspanel.org>
+Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
 
 %description
@@ -42,5 +42,5 @@ rm -rf %{buildroot}
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/sing-box.service
 
 %changelog
-* Sun Jul 24 2022 The NeXT Project Team <package@sspanel.org> - 1.4.3-1
+* Sun Jul 24 2022 The NeXT Project Team <package@nextpanel.dev> - 1.4.3-1
  - https://github.com/SagerNet/sing-box/releases/tag/v1.4.3

@@ -1,6 +1,6 @@
 Package: xrayr
 Version: 0.0.1
 Architecture: amd64
-Maintainer: The NeXT Project Team <package@sspanel.org>
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
 Homepage: https://github.com/XrayR-project/XrayR
 Description: A Xray backend framework that can easily support many panels.

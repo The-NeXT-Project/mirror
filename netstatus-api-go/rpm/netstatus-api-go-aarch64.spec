@@ -5,7 +5,7 @@ Summary:        NetStatus API (Go Edition)
 Group:          Unspecified
 License:        GPL-3.0
 URL:            https://github.com/The-NeXT-Project/NetStatus-API-Go
-Packager:       The NeXT Project Team <package@sspanel.org>
+Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
 
 %description
@@ -36,5 +36,5 @@ rm -rf %{buildroot}
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/netstatus-api-go.service
 
 %changelog
-* Sun Dec 23 2023 The NeXT Project Team <package@sspanel.org> - 0.0.1-1
+* Sun Dec 23 2023 The NeXT Project Team <package@nextpanel.dev> - 0.0.1-1
  - https://github.com/The-NeXT-Project/NetStatus-API-Go/releases/tag/v0.0.1

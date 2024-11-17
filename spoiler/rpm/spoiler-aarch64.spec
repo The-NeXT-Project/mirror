@@ -5,7 +5,7 @@ Summary:        Yet another proxy backend server for the illegal industry.
 Group:          Unspecified
 License:        GPL-3.0
 URL:            https://github.com/SagerNet/spoiler
-Packager:       The NeXT Project Team <package@sspanel.org>
+Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
 
 %description
@@ -42,5 +42,5 @@ rm -rf %{buildroot}
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/spoiler.service
 
 %changelog
-* Sun Jul 24 2022 The NeXT Project Team <package@sspanel.org> - 1.0.0-1
+* Sun Jul 24 2022 The NeXT Project Team <package@nextpanel.dev> - 1.0.0-1
  - https://github.com/SagerNet/spoiler/releases/tag/v1.0.0

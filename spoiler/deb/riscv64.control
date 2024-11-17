@@ -1,6 +1,6 @@
 Package: spoiler
 Version: 0.0.1
-Architecture: amd64
+Architecture: riscv64
 Maintainer: The NeXT Project Team <package@nextpanel.dev>
 Homepage: https://github.com/SagerNet/spoiler
 Description: Yet another proxy backend server for the illegal industry.

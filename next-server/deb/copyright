@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: NeXT-Server
-Upstream-Contact: package@sspanel.org
+Upstream-Contact: package@nextpanel.dev
 Source: https://github.com/The-NeXT-Project/NeXT-Server
 
 Files: *

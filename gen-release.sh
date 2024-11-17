@@ -20,7 +20,7 @@ Label: The NeXT Project
 Suite: stable
 Codename: stable
 Version: 1.0
-Architectures: amd64 arm64
+Architectures: amd64 arm64 riscv64
 Components: main
 Description: The NeXT Project Deb Repository
 Date: $(date -Ru)

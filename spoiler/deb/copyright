@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: spoiler
-Upstream-Contact: package@sspanel.org
+Upstream-Contact: package@nextpanel.dev
 Source: https://github.com/SagerNet/spoiler
 
 Files: *

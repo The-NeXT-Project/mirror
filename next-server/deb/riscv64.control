@@ -1,6 +1,6 @@
 Package: next-server
 Version: 0.0.1
-Architecture: amd64
+Architecture: riscv64
 Maintainer: The NeXT Project Team <package@nextpanel.dev>
 Homepage: https://github.com/The-NeXT-Project/NeXT-Server
 Description: Next generation proxy server.

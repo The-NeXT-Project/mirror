@@ -1,6 +1,6 @@
 Package: trojan-server
 Version: 0.0.1
 Architecture: amd64
-Maintainer: The NeXT Project Team <package@sspanel.org>
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
 Homepage: https://github.com/The-NeXT-Project/TrojanX
 Description: TrojanX Server.
