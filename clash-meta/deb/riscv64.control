@@ -1,0 +1,6 @@
+Package: clash-meta
+Version: 0.0.1
+Architecture: riscv64
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
+Homepage: https://github.com/MetaCubeX/mihomo
+Description: Another Clash Kernel.
