@@ -3,7 +3,7 @@ Version:        0.0.1
 Release:        1%{?dist}
 Summary:        Next generation proxy server.
 Group:          Unspecified
-License:        MPL-2.0
+License:        GPL-3.0
 URL:            https://github.com/The-NeXT-Project/NeXT-Server
 Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
@@ -56,5 +56,5 @@ rm -rf %{buildroot}
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/next-server.service
 
 %changelog
-* Sun Dec 23 2023 The NeXT Project Team <package@nextpanel.dev> - 0.1.0-1
- - https://github.com/The-NeXT-Project/NeXT-Server/releases/tag/v0.1.0
+* Sun Dec 23 2023 The NeXT Project Team <package@nextpanel.dev> - 0.0.0-1
+ - Initial release

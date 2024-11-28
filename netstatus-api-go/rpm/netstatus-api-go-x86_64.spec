@@ -17,6 +17,7 @@ mkdir -p %{buildroot}/usr/local/netstatus-api-go
 mkdir -p %{buildroot}%{_sysconfdir}/systemd/system
 mkdir -p %{buildroot}%{_bindir}
 install -m 755 %{_builddir}/%{name}-%{version}/netstatus-api-go-amd64-linux %{buildroot}/usr/local/netstatus-api-go/netstatus-api-go
+install -m 644 %{_builddir}/%{name}-%{version}/README.md %{buildroot}/usr/local/netstatus-api-go/README.md
 install -m 644 %{_builddir}/%{name}-%{version}/LICENSE %{buildroot}/usr/local/netstatus-api-go/LICENSE
 install -m 644 %{_builddir}/%{name}-%{version}/netstatus-api-go.service %{buildroot}%{_sysconfdir}/systemd/system
 
@@ -32,6 +33,7 @@ rm -rf %{buildroot}
 %files
 %attr(0755, root, root) /usr/local/netstatus-api-go
 %attr(0755, root, root) /usr/local/netstatus-api-go/netstatus-api-go
+%attr(0644, root, root) /usr/local/netstatus-api-go/README.md
 %attr(0644, root, root) /usr/local/netstatus-api-go/LICENSE
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/netstatus-api-go.service
 

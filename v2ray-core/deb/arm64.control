@@ -1,0 +1,6 @@
+Package: v2ray-core
+Version: 0.0.1
+Architecture: arm64
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
+Homepage: https://github.com/v2fly/v2ray-core
+Description: A platform for building proxies to bypass network restrictions.

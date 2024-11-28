@@ -20,7 +20,7 @@ mkdir -p %{buildroot}%{_bindir}
 install -m 755 %{_builddir}/%{name}-%{version}/sing-box-amd64-linux %{buildroot}/usr/local/sing-box/sing-box
 install -m 644 %{_builddir}/%{name}-%{version}/README.md %{buildroot}/usr/local/sing-box/README.md
 install -m 644 %{_builddir}/%{name}-%{version}/LICENSE %{buildroot}/usr/local/sing-box/LICENSE
-install -m 644 %{_builddir}/%{name}-%{version}/config.json %{buildroot}%{_sysconfdir}/sing-box/config.json
+install -m 644 %{_builddir}/%{name}-%{version}/config.json.example %{buildroot}%{_sysconfdir}/sing-box/config.json.example
 install -m 644 %{_builddir}/%{name}-%{version}/sing-box.service %{buildroot}%{_sysconfdir}/systemd/system
 
 %post
@@ -38,9 +38,9 @@ rm -rf %{buildroot}
 %attr(0644, root, root) /usr/local/sing-box/README.md
 %attr(0644, root, root) /usr/local/sing-box/LICENSE
 %attr(0644, root, root) %{_sysconfdir}/sing-box
-%attr(0644, root, root) %{_sysconfdir}/sing-box/config.json
+%attr(0644, root, root) %{_sysconfdir}/sing-box/config.json.example
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/sing-box.service
 
 %changelog
-* Sun Jul 24 2022 The NeXT Project Team <package@nextpanel.dev> - 1.4.3-1
- - https://github.com/SagerNet/sing-box/releases/tag/v1.4.3
+* Sun Jul 24 2022 The NeXT Project Team <package@nextpanel.dev> - 0.0.0-1
+ - Initial release
