@@ -11,9 +11,9 @@ Type=simple
 LimitAS=infinity
 LimitRSS=infinity
 LimitCORE=infinity
-LimitNOFILE=999999
+LimitNOFILE=65535
 WorkingDirectory=/usr/local/next-server/
-ExecStart=/usr/local/next-server/next-server --config /etc/next-server/config.yml
+ExecStart=/usr/local/next-server/next-server --config /etc/next-server/config.json
 Restart=on-failure
 RestartSec=30
 

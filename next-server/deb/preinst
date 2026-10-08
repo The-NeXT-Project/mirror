@@ -1,0 +1,15 @@
+#!/bin/sh
+# NeXT-Server 1.x reads /etc/next-server/config.json, 0.x read config.yml.
+# Refuse an upgrade from 0.x until the new configuration is in place, so that
+# a routine apt upgrade cannot leave a node that fails on its next restart.
+set -e
+
+if [ "$1" = upgrade ] && [ -n "$2" ] && dpkg --compare-versions "$2" lt 1.0.0 &&
+	[ ! -f /etc/next-server/config.json ]; then
+	echo "next-server: 1.x needs /etc/next-server/config.json, see" >&2
+	echo "next-server: https://github.com/The-NeXT-Project/NeXT-Server/blob/main/CHANGELOG.md" >&2
+	echo "next-server: keeping $2; write the new configuration, then upgrade again" >&2
+	exit 1
+fi
+
+exit 0

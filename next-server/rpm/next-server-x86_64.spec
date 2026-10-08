@@ -1,60 +1,83 @@
 Name:           next-server
 Version:        0.0.1
 Release:        1%{?dist}
-Summary:        Next generation proxy server.
+Summary:        NeXT-Panel node server, built on sing-box.
 Group:          Unspecified
 License:        GPL-3.0
 URL:            https://github.com/The-NeXT-Project/NeXT-Server
 Packager:       The NeXT Project Team <package@nextpanel.dev>
 BuildRequires:  systemd
 
+# The binary is static and already stripped.
+%global debug_package %{nil}
+
 %description
-Next generation proxy server.
+NeXT-Panel node server, built on sing-box.
 
 %install
+# The build passes the staged files in with --define "srcdir ...", since
+# _builddir changed layout in rpm 4.20.
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/local/next-server
 mkdir -p %{buildroot}%{_sysconfdir}/next-server
 mkdir -p %{buildroot}%{_sysconfdir}/systemd/system
 mkdir -p %{buildroot}%{_bindir}
-install -m 755 %{_builddir}/%{name}-%{version}/next-server-amd64-linux %{buildroot}/usr/local/next-server/next-server
-install -m 644 %{_builddir}/%{name}-%{version}/geoip.dat %{buildroot}/usr/local/next-server/geoip.dat
-install -m 644 %{_builddir}/%{name}-%{version}/geosite.dat %{buildroot}/usr/local/next-server/geosite.dat
-install -m 644 %{_builddir}/%{name}-%{version}/README.md %{buildroot}/usr/local/next-server/README.md
-install -m 644 %{_builddir}/%{name}-%{version}/LICENSE %{buildroot}/usr/local/next-server/LICENSE
-install -m 644 %{_builddir}/%{name}-%{version}/dns.json %{buildroot}%{_sysconfdir}/next-server/dns.json
-install -m 644 %{_builddir}/%{name}-%{version}/route.json %{buildroot}%{_sysconfdir}/next-server/route.json
-install -m 644 %{_builddir}/%{name}-%{version}/custom_outbound.json %{buildroot}%{_sysconfdir}/next-server/custom_outbound.json
-install -m 644 %{_builddir}/%{name}-%{version}/custom_inbound.json %{buildroot}%{_sysconfdir}/next-server/custom_inbound.json
-install -m 644 %{_builddir}/%{name}-%{version}/rulelist %{buildroot}%{_sysconfdir}/next-server/rulelist
-install -m 644 %{_builddir}/%{name}-%{version}/config.yml.example %{buildroot}%{_sysconfdir}/next-server/config.yml.example
-install -m 644 %{_builddir}/%{name}-%{version}/next-server.service %{buildroot}%{_sysconfdir}/systemd/system
+install -m 755 %{srcdir}/next-server-amd64-linux %{buildroot}/usr/local/next-server/next-server
+install -m 644 %{srcdir}/README.md %{buildroot}/usr/local/next-server/README.md
+install -m 644 %{srcdir}/CHANGELOG.md %{buildroot}/usr/local/next-server/CHANGELOG.md
+install -m 644 %{srcdir}/LICENSE %{buildroot}/usr/local/next-server/LICENSE
+install -m 644 %{srcdir}/config.json %{buildroot}%{_sysconfdir}/next-server/config.json.example
+install -m 644 %{srcdir}/next-server.service %{buildroot}%{_sysconfdir}/systemd/system/next-server.service
+ln -s ../local/next-server/next-server %{buildroot}%{_bindir}/next-server
+
+# 1.x reads /etc/next-server/config.json, 0.x read config.yml. Refuse an
+# upgrade from 0.x until the new configuration is in place, so that a routine
+# update cannot leave a node that fails on its next restart.
+%pre
+if [ "$1" -gt 1 ] && [ -f %{_sysconfdir}/next-server/config.yml ] && [ ! -f %{_sysconfdir}/next-server/config.json ]; then
+	echo "next-server: 1.x needs %{_sysconfdir}/next-server/config.json, see" >&2
+	echo "next-server: https://github.com/The-NeXT-Project/NeXT-Server/blob/main/CHANGELOG.md" >&2
+	echo "next-server: keeping the installed version; write the new configuration, then update again" >&2
+	exit 1
+fi
 
 %post
-ln -s /usr/local/next-server/next-server %{_bindir}/next-server
+if [ -d /run/systemd/system ]; then
+	systemctl daemon-reload >/dev/null 2>&1 || :
+	# On an upgrade, a running server switches to the new binary.
+	if [ "$1" -gt 1 ] && [ -f %{_sysconfdir}/next-server/config.json ]; then
+		systemctl try-restart next-server.service >/dev/null 2>&1 || :
+	fi
+fi
+
+# 0.x removed /usr/bin/next-server in its %%postun, which runs after this
+# package is installed; put the link back once the upgrade is done.
+%posttrans
+[ -e %{_bindir}/next-server ] || ln -s ../local/next-server/next-server %{_bindir}/next-server
+
+%preun
+if [ "$1" -eq 0 ] && [ -d /run/systemd/system ]; then
+	systemctl --no-reload disable --now next-server.service >/dev/null 2>&1 || :
+fi
 
 %postun
-rm -f %{_bindir}/next-server
-
-%clean
-rm -rf %{buildroot}
+if [ "$1" -eq 0 ] && [ -d /run/systemd/system ]; then
+	systemctl daemon-reload >/dev/null 2>&1 || :
+fi
 
 %files
-%attr(0755, root, root) /usr/local/next-server
+%dir %attr(0755, root, root) /usr/local/next-server
 %attr(0755, root, root) /usr/local/next-server/next-server
-%attr(0644, root, root) /usr/local/next-server/geoip.dat
-%attr(0644, root, root) /usr/local/next-server/geosite.dat
 %attr(0644, root, root) /usr/local/next-server/README.md
+%attr(0644, root, root) /usr/local/next-server/CHANGELOG.md
 %attr(0644, root, root) /usr/local/next-server/LICENSE
-%attr(0644, root, root) %{_sysconfdir}/next-server/dns.json
-%attr(0644, root, root) %{_sysconfdir}/next-server/route.json
-%attr(0644, root, root) %{_sysconfdir}/next-server/custom_outbound.json
-%attr(0644, root, root) %{_sysconfdir}/next-server/custom_inbound.json
-%attr(0644, root, root) %{_sysconfdir}/next-server/rulelist
-%attr(0644, root, root) %{_sysconfdir}/next-server
-%attr(0644, root, root) %{_sysconfdir}/next-server/config.yml.example
+%{_bindir}/next-server
+%dir %attr(0755, root, root) %{_sysconfdir}/next-server
+%attr(0644, root, root) %{_sysconfdir}/next-server/config.json.example
 %attr(0644, root, root) %{_sysconfdir}/systemd/system/next-server.service
 
 %changelog
-* Sun Dec 23 2023 The NeXT Project Team <package@nextpanel.dev> - 0.0.0-1
+* Thu Oct 08 2026 The NeXT Project Team <package@nextpanel.dev> - 1.0.0-1
+ - NeXT-Server 1.x, built on sing-box; reads /etc/next-server/config.json
+* Sat Dec 23 2023 The NeXT Project Team <package@nextpanel.dev> - 0.0.0-1
  - Initial release

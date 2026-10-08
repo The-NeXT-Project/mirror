@@ -1,0 +1,14 @@
+#!/bin/sh
+# The unit lives in /etc/systemd/system and is replaced on every upgrade.
+set -e
+
+if [ "$1" = configure ] && [ -d /run/systemd/system ]; then
+	systemctl daemon-reload
+	# On an upgrade, a running server switches to the new binary. A fresh
+	# install is left for the administrator to configure and start.
+	if [ -n "$2" ] && [ -f /etc/next-server/config.json ]; then
+		systemctl try-restart next-server.service
+	fi
+fi
+
+exit 0

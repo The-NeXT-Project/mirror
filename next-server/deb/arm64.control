@@ -3,4 +3,4 @@ Version: 0.0.1
 Architecture: arm64
 Maintainer: The NeXT Project Team <package@nextpanel.dev>
 Homepage: https://github.com/The-NeXT-Project/NeXT-Server
-Description: Next generation proxy server.
+Description: NeXT-Panel node server, built on sing-box.
