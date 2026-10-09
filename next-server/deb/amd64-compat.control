@@ -1,0 +1,12 @@
+Package: next-server-compat
+Version: 0.0.1
+Architecture: amd64
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
+Homepage: https://github.com/The-NeXT-Project/NeXT-Server
+Provides: next-server
+Conflicts: next-server
+Replaces: next-server
+Description: NeXT-Panel node server, built on sing-box (x86-64-v1 build).
+ The same release as next-server, built for any x86-64 CPU. Install it
+ instead of next-server on CPUs without x86-64-v3 (AVX2, BMI2, FMA), where
+ the next-server build refuses to start.

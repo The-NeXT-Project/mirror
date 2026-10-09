@@ -4,9 +4,11 @@ set -e
 
 if [ "$1" = configure ] && [ -d /run/systemd/system ]; then
 	systemctl daemon-reload
-	# On an upgrade, a running server switches to the new binary. A fresh
-	# install is left for the administrator to configure and start.
-	if [ -n "$2" ] && [ -f /etc/next-server/config.json ]; then
+	# A running server switches to the new binary: on an upgrade, and when
+	# next-server-compat replaces next-server, which is a fresh install of
+	# it. try-restart leaves a stopped server alone, so a new node still
+	# waits for the administrator.
+	if [ -f /etc/next-server/config.json ]; then
 		systemctl try-restart next-server.service
 	fi
 fi
