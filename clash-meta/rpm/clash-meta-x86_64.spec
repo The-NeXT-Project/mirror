@@ -20,7 +20,7 @@ mkdir -p %{buildroot}%{_bindir}
 install -m 755 %{_builddir}/%{name}-%{version}/clash-meta-amd64-linux %{buildroot}/usr/local/clash-meta/clash-meta
 install -m 644 %{_builddir}/%{name}-%{version}/README.md %{buildroot}/usr/local/clash-meta/README.md
 install -m 644 %{_builddir}/%{name}-%{version}/LICENSE %{buildroot}/usr/local/clash-meta/LICENSE
-install -m 644 %{_builddir}/%{name}-%{version}/config.yaml %{buildroot}%{_sysconfdir}/clash-meta/config.yaml.example
+install -m 644 %{_builddir}/%{name}-%{version}/config.yaml.example %{buildroot}%{_sysconfdir}/clash-meta/config.yaml.example
 install -m 644 %{_builddir}/%{name}-%{version}/clash-meta.service %{buildroot}%{_sysconfdir}/systemd/system
 
 %post
