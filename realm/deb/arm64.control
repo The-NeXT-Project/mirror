@@ -1,0 +1,6 @@
+Package: realm
+Version: 0.0.1
+Architecture: arm64
+Maintainer: The NeXT Project Team <package@nextpanel.dev>
+Homepage: https://github.com/zhboner/realm
+Description: A network relay tool

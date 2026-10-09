@@ -1,0 +1,20 @@
+[Unit]
+Description=Realm Service
+Documentation=https://github.com/zhboner/realm
+After=network.target nss-lookup.target
+Wants=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+LimitAS=infinity
+LimitRSS=infinity
+LimitCORE=infinity
+LimitNOFILE=65535
+ExecStart=/usr/local/realm/realm -c /etc/realm/config.toml
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

@@ -6,6 +6,10 @@
 #   EXAMPLE  example configuration in the checkout, installed as
 #            /etc/$PKG/<its name>.example
 #   build    a function that builds the binary for $GOARCH into "$1"
+# and optionally:
+#   EXAMPLE_NAME  the name to install EXAMPLE under instead
+#   README        the checkout's readme, README.md by default; packaged as README.md
+#   prepare       a function run before the builds, instead of `go mod download`
 #
 #   PKG=sing-box
 #   RELEASE=$(git describe --tags --abbrev=0 | sed -e "s/^v//")
@@ -23,14 +27,21 @@ HEAD=$(git rev-parse --short HEAD)
 VERSION=$RELEASE.g$HEAD
 WORKSPACE_DIR=$(pwd)
 OUT=$WORKSPACE_DIR/out
-EXAMPLE_NAME=${EXAMPLE##*/}
-EXAMPLE_NAME=${EXAMPLE_NAME%.example}.example
+if [ -z "$EXAMPLE_NAME" ]; then
+	EXAMPLE_NAME=${EXAMPLE##*/}
+	EXAMPLE_NAME=${EXAMPLE_NAME%.example}.example
+fi
+README=${README:-README.md}
 RPM_SRC=$WORKSPACE_DIR/rpmbuild/BUILD/$PKG-$VERSION
 
 rm -rf out pkg rpmbuild
 mkdir -p out pkg rpmbuild/SPECS "$RPM_SRC"
 
-go mod download
+if type prepare >/dev/null 2>&1; then
+	prepare
+else
+	go mod download
+fi
 
 for file in $PKG.service deb/amd64.control deb/arm64.control deb/riscv64.control deb/copyright deb/rules; do
 	wget -q "$MIRROR_URL/$file" -O "pkg/$(basename $file)"
@@ -58,14 +69,16 @@ for ARCH in amd64 arm64 riscv64; do
 	sed -e "s/Version: 0.0.1/Version: $VERSION/" pkg/$ARCH.control > $DIR/DEBIAN/control
 	cp pkg/copyright pkg/rules $DIR/DEBIAN/
 	install -m 0755 out/$PKG-$ARCH-linux $DIR/usr/local/$PKG/$PKG
-	cp README.md LICENSE $DIR/usr/local/$PKG/
+	cp "$README" $DIR/usr/local/$PKG/README.md
+	cp LICENSE $DIR/usr/local/$PKG/
 	cp "$EXAMPLE" "$DIR/etc/$PKG/$EXAMPLE_NAME"
 	cp pkg/$PKG.service $DIR/etc/systemd/system/
 	dpkg-deb --root-owner-group --build $DIR out/${PKG}_${VERSION}-1_$ARCH.deb
 done
 
 # rpm; the specs install from %{_builddir}/%{name}-%{version}.
-cp out/$PKG-amd64-linux out/$PKG-arm64-linux README.md LICENSE pkg/$PKG.service "$RPM_SRC/"
+cp out/$PKG-amd64-linux out/$PKG-arm64-linux LICENSE pkg/$PKG.service "$RPM_SRC/"
+cp "$README" "$RPM_SRC/README.md"
 cp "$EXAMPLE" "$RPM_SRC/$EXAMPLE_NAME"
 for ARCH in x86_64 aarch64; do
 	sed -i -e "s/^Version:        0.0.1$/Version:        $VERSION/" rpmbuild/SPECS/$PKG-$ARCH.spec
