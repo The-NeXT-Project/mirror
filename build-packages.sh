@@ -21,7 +21,7 @@
 MIRROR_URL=https://raw.githubusercontent.com/The-NeXT-Project/mirror/main/$PKG
 REPO_DIR=${REPO_DIR:-$HOME/workspace/next-mirror-upload/mirror/repo}
 # Each rpm repository directory and the dist tag its file names carry.
-RPM_REPOS="fedora/44:fc44 fedora/43:fc43 rhel/9:el9 rhel/10:el10"
+RPM_REPOS="fedora/45:fc45 fedora/44:fc44 rhel/9:el9 rhel/10:el10"
 
 HEAD=$(git rev-parse --short HEAD)
 VERSION=$RELEASE.g$HEAD
